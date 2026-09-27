@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InvoiceAI | Intelligent Extraction</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.js"></script>
+</head>
+
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <main class="app-container">
+        <header>
+            <div class="logo">
+                <i data-lucide="zap" class="logo-icon"></i>
+                <h1>InvoiceAI</h1>
+            </div>
+            <p class="subtitle">Extract data from invoices with cutting-edge AI</p>
+        </header>
+
+        <!-- History is now at the TOP -->
+        <section class="history-section card" id="history-section">
+            <div class="card-header">
+                <i data-lucide="history"></i>
+                <span>Invoices History</span>
+            </div>
+            <div class="history-container">
+                <table id="history-table">
+                    <thead>
+                        <tr>
+                            <th>Date Saved</th>
+                            <th>Vendor</th>
+                            <th>Invoice #</th>
+                            <th>Amount</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-body">
+                        <!-- History items will be injected here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="upload-section" id="drop-zone">
+            <div class="upload-content">
+                <i data-lucide="upload-cloud" class="upload-icon"></i>
+                <h3>Upload Invoice</h3>
+                <p>Drag and drop your PDF here or click to browse</p>
+                <input type="file" id="file-input" accept=".pdf, .png, .jpg, .jpeg, .webp" hidden>
+                <button class="btn-primary" onclick="document.getElementById('file-input').click()">Choose File</button>
+            </div>
+            <div id="file-info" class="hidden">
+                <p id="file-name"></p>
+                <button class="btn-secondary" id="extract-btn">Extract Details</button>
+            </div>
+        </section>
+
+        <section class="result-section hidden" id="result-section">
+            <div class="loader-container" id="loader">
+                <div class="spinner"></div>
+                <p>Analyzing invoice with AI...</p>
+            </div>
+
+            <div class="content-grid hidden" id="content-grid">
+                <div class="pdf-preview-container card">
+                    <div class="card-header">
+                        <i data-lucide="file-text"></i>
+                        <span>PDF Preview</span>
+                    </div>
+                    <div id="pdf-viewer" class="pdf-viewer">
+                        <p>Preview not available</p>
+                    </div>
+                </div>
+
+                <div class="form-container card">
+                    <div class="card-header">
+                        <i data-lucide="layout"></i>
+                        <span>Extracted Details</span>
+                    </div>
+                    <form id="invoice-form" class="invoice-form">
+                        <div class="form-group">
+                            <label>Vendor Name</label>
+                            <input type="text" id="vendor_name" placeholder="Extracting...">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Invoice #</label>
+                                <input type="text" id="invoice_number" placeholder="...">
+                            </div>
+                            <div class="form-group">
+                                <label>Date</label>
+                                <input type="text" id="date" placeholder="...">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Total Amount</label>
+                                <input type="text" id="total_amount" placeholder="...">
+                            </div>
+                            <div class="form-group">
+                                <label>Currency</label>
+                                <input type="text" id="currency" placeholder="...">
+                            </div>
+                        </div>
+
+                        <div class="items-table-container">
+                            <label>Line Items</label>
+                            <table id="items-table">
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>Qty</th>
+                                        <th>Price</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="items-body">
+                                    <!-- Items will be injected here -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <button type="button" class="btn-success" id="save-btn">Confirm & Save</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
